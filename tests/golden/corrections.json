@@ -1,0 +1,205 @@
+{
+  "_comment": "Golden correction vectors. Every expected number is transcribed from the IOTA Excel form dumps in features/report-overhaul/excel-form-analysis.md (camera delays = §6.2 table cells; VTI offsets = §5.2 Q44:S50; rolling shutter = §5.4 polynomials). These are the Excel's own values; the engine must reproduce them. 'func' selects the entry point; 'expect' holds the expected result or {'raises': true}.",
+  "camera_delay": [
+    {"name": "Watec 120N X1 NTSC (§6.2 A8:F17)", "camera": "WATEC_120N", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.0334},
+    {"name": "Watec 120N X1 PAL", "camera": "WATEC_120N", "exposure": "X1", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.04},
+    {"name": "Watec 120N X8 NTSC", "camera": "WATEC_120N", "exposure": "X8", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.1502},
+    {"name": "Watec 120N X8 PAL", "camera": "WATEC_120N", "exposure": "X8", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "R", "expect": -0.18},
+    {"name": "Watec 120N X64 NTSC", "camera": "WATEC_120N", "exposure": "X64", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -1.0844},
+    {"name": "Watec 120N X64 PAL", "camera": "WATEC_120N", "exposure": "X64", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -1.30},
+    {"name": "Watec 910HX X1 NTSC (§6.2 B23:F31)", "camera": "WATEC_910HX", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.0167},
+    {"name": "Watec 910HX X1 PAL", "camera": "WATEC_910HX", "exposure": "X1", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.02},
+    {"name": "Watec 910BD X16 NTSC (shared row)", "camera": "WATEC_910BD", "exposure": "X16", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.2669},
+    {"name": "Watec 910BD X16 PAL", "camera": "WATEC_910BD", "exposure": "X16", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "R", "expect": -0.32},
+    {"name": "Watec 910HX X256 NTSC", "camera": "WATEC_910HX", "exposure": "X256", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -4.2376},
+    {"name": "Watec 910HX X256 PAL", "camera": "WATEC_910HX", "exposure": "X256", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -5.08},
+    {"name": "Mintron X2 NTSC (§6.2 B51:F63)", "camera": "MINTRON_12V1C_EX", "exposure": "X2", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.0167},
+    {"name": "Mintron X2 PAL", "camera": "MINTRON_12V1C_EX", "exposure": "X2", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.02},
+    {"name": "Mintron X8 NTSC", "camera": "MINTRON_12V1C_EX", "exposure": "X8", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.1168},
+    {"name": "Mintron X128 PAL", "camera": "MINTRON_12V1C_EX", "exposure": "X128", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -2.54},
+    {"name": "Mintron X128 NTSC", "camera": "MINTRON_12V1C_EX", "exposure": "X128", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -2.1188},
+    {"name": "Mallincam X1 NTSC (§6.2 B70:F82)", "camera": "MALLINCAM", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.0167},
+    {"name": "Mallincam X6 NTSC", "camera": "MALLINCAM", "exposure": "X6", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.1001},
+    {"name": "Mallincam X6 PAL", "camera": "MALLINCAM", "exposure": "X6", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.12},
+    {"name": "Mallincam X96 NTSC", "camera": "MALLINCAM", "exposure": "X96", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -1.5682},
+    {"name": "PC165-DNR X1 NTSC (§6.2 B37:F45, EIA only)", "camera": "PC165_DNR", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.0167},
+    {"name": "PC165-DNR X16 NTSC", "camera": "PC165_DNR", "exposure": "X16", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.2669},
+    {"name": "PC165-DNR X256 NTSC", "camera": "PC165_DNR", "exposure": "X256", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "R", "expect": -4.2709},
+    {"name": "PC165-DNR X1 PAL -> blank column = 0 (Excel blank-cell arithmetic)", "camera": "PC165_DNR", "exposure": "X1", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": 0.0},
+    {"name": "Samsung SBC-2000 X1 NTSC (§6.2 B89:F103, EIA only)", "camera": "SAMSUNG_SBC_2000", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.0334},
+    {"name": "Samsung SBC-2000 X8 NTSC", "camera": "SAMSUNG_SBC_2000", "exposure": "X8", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.1502},
+    {"name": "Samsung SBC-2000 X512 NTSC", "camera": "SAMSUNG_SBC_2000", "exposure": "X512", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -8.5586},
+    {"name": "RunCam Night Eagle (non-Astro) X1 NTSC flat (§6.2 B106)", "camera": "RUNCAM_NIGHT_EAGLE", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.0167},
+    {"name": "RunCam Night Eagle X1 PAL flat", "camera": "RUNCAM_NIGHT_EAGLE", "exposure": "X1", "video_format": "PAL_CCIR", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": -0.02},
+    {"name": "Watec 902H (catch-all, zero delay §6.2 B108)", "camera": "WATEC_902H", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": 0.0},
+    {"name": "Camera delay suppressed by AOTA w/ CamDelay (§5.1)", "camera": "WATEC_120N", "exposure": "X8", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "AOTA_WITH_CAMDELAY", "edge": "D", "expect": 0.0},
+    {"name": "Camera delay suppressed by Flash Tag (§5.1)", "camera": "WATEC_120N", "exposure": "X8", "video_format": "NTSC_EIA", "timing_device": "AFT_OFT_FLASH_TAG", "ote": "PYOTE", "edge": "D", "expect": 0.0},
+    {"name": "Watec 120N X6 not in matrix -> raises (§5.8)", "camera": "WATEC_120N", "exposure": "X6", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": {"raises": true}},
+    {"name": "Watec 910 X512 not in matrix -> raises", "camera": "WATEC_910HX", "exposure": "X512", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": {"raises": true}},
+    {"name": "RunCam Night Eagle X2 not in matrix -> raises", "camera": "RUNCAM_NIGHT_EAGLE", "exposure": "X2", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": {"raises": true}},
+    {"name": "RunCam Astro X1 not in matrix (only 2x/4x/8x) -> raises", "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "PYOTE", "edge": "D", "expect": {"raises": true}},
+    {"name": "QHY 174 GPS with R-OTE w/CamDelay not allowed -> raises (§6.4 ote)", "camera": "QHY_174_GPS", "exposure": "X1", "video_format": "NTSC_EIA", "timing_device": "IOTA_VTI", "ote": "R_OTE_WITH_CAMDELAY", "edge": "D", "expect": {"raises": true}}
+  ],
+  "vti_offset": [
+    {"name": "OTE Manual NTSC (§5.2)", "ote": "MANUAL", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE Manual PAL", "ote": "MANUAL", "video_format": "PAL_CCIR", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE Other NTSC", "ote": "OTHER", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE Other PAL", "ote": "OTHER", "video_format": "PAL_CCIR", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE AOTA w/CamDelay NTSC", "ote": "AOTA_WITH_CAMDELAY", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE AOTA w/CamDelay PAL", "ote": "AOTA_WITH_CAMDELAY", "video_format": "PAL_CCIR", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE Occular NTSC (non-RunCam-Astro -> 0)", "ote": "OCCULAR", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE Occular PAL +0.02", "ote": "OCCULAR", "video_format": "PAL_CCIR", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.02},
+    {"name": "OTE R-OTE w/CamDelay NTSC", "ote": "R_OTE_WITH_CAMDELAY", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE R-OTE w/CamDelay PAL", "ote": "R_OTE_WITH_CAMDELAY", "video_format": "PAL_CCIR", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "OTE R-OTE w/o CamDelay NTSC -0.0167", "ote": "R_OTE_WITHOUT_CAMDELAY", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": -0.0167},
+    {"name": "OTE R-OTE w/o CamDelay PAL -0.02", "ote": "R_OTE_WITHOUT_CAMDELAY", "video_format": "PAL_CCIR", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": -0.02},
+    {"name": "OTE PYOTE NTSC -0.0167", "ote": "PYOTE", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": -0.0167},
+    {"name": "OTE PYOTE PAL -0.02", "ote": "PYOTE", "video_format": "PAL_CCIR", "camera": "WATEC_910HX", "timing_device": "IOTA_VTI", "expect": -0.02},
+    {"name": "Self-correcting camera zeroes R-OTE w/o CamDelay NTSC (§5.2 R49/S49)", "ote": "R_OTE_WITHOUT_CAMDELAY", "video_format": "NTSC_EIA", "camera": "G_STAR", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "Self-correcting camera zeroes R-OTE w/o CamDelay PAL", "ote": "R_OTE_WITHOUT_CAMDELAY", "video_format": "PAL_CCIR", "camera": "G_STAR", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "Self-correcting camera zeroes PYOTE NTSC (§5.2 R50/S50)", "ote": "PYOTE", "video_format": "NTSC_EIA", "camera": "G_STAR", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "Flash Tag zeroes VTI offset (ote != Occular)", "ote": "PYOTE", "video_format": "NTSC_EIA", "camera": "WATEC_910HX", "timing_device": "AFT_OFT_FLASH_TAG", "expect": 0.0},
+    {"name": "RunCam Night Eagle zeroes VTI offset (ote != Occular)", "ote": "PYOTE", "video_format": "NTSC_EIA", "camera": "RUNCAM_NIGHT_EAGLE", "timing_device": "IOTA_VTI", "expect": 0.0},
+    {"name": "RunCam Astro + Occular NTSC additional VTI +0.0167 (§5.4)", "ote": "OCCULAR", "video_format": "NTSC_EIA", "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "timing_device": "IOTA_VTI", "expect": 0.0167},
+    {"name": "RunCam Astro + Occular PAL additional VTI +0.02", "ote": "OCCULAR", "video_format": "PAL_CCIR", "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "timing_device": "IOTA_VTI", "expect": 0.02},
+    {"name": "RunCam Astro + R-OTE + KIWI-OSD additional VTI -0.0167 NTSC (§5.4)", "ote": "R_OTE_WITHOUT_CAMDELAY", "video_format": "NTSC_EIA", "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "timing_device": "KIWI_OSD", "expect": -0.0167},
+    {"name": "RunCam Astro + R-OTE + IOTA-VTI additional VTI -0.02 PAL", "ote": "R_OTE_WITH_CAMDELAY", "video_format": "PAL_CCIR", "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "timing_device": "IOTA_VTI", "expect": -0.02},
+    {"name": "RunCam Astro + R-OTE + other device additional VTI 0", "ote": "R_OTE_WITHOUT_CAMDELAY", "video_format": "NTSC_EIA", "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "timing_device": "GPS", "expect": 0.0}
+  ],
+  "rolling_shutter": [
+    {"name": "NS1 NTSC Y=0 (§5.4)", "night_shutter": "NS1", "y_position": 0, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.06903},
+    {"name": "NS1 NTSC Y=240", "night_shutter": "NS1", "y_position": 240, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.05301144},
+    {"name": "NS1 NTSC Y=479 (max)", "night_shutter": "NS1", "y_position": 479, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.037059624},
+    {"name": "NS2 NTSC Y=0", "night_shutter": "NS2", "y_position": 0, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.10268},
+    {"name": "NS2 NTSC Y=240", "night_shutter": "NS2", "y_position": 240, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.08653232},
+    {"name": "NS2 NTSC Y=479", "night_shutter": "NS2", "y_position": 479, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.070451922},
+    {"name": "NS3 NTSC Y=0", "night_shutter": "NS3", "y_position": 0, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.16924},
+    {"name": "NS3 NTSC Y=240", "night_shutter": "NS3", "y_position": 240, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.15326488},
+    {"name": "NS3 NTSC Y=479", "night_shutter": "NS3", "y_position": 479, "video_format": "NTSC_EIA", "edge": "D", "expect": -0.137356323},
+    {"name": "NS1 PAL Y=0", "night_shutter": "NS1", "y_position": 0, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.07424},
+    {"name": "NS1 PAL Y=240", "night_shutter": "NS1", "y_position": 240, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.05908568},
+    {"name": "NS1 PAL Y=575 (max)", "night_shutter": "NS1", "y_position": 575, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.037932775},
+    {"name": "NS2 PAL Y=0", "night_shutter": "NS2", "y_position": 0, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.11412},
+    {"name": "NS2 PAL Y=240", "night_shutter": "NS2", "y_position": 240, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.09908352},
+    {"name": "NS2 PAL Y=575", "night_shutter": "NS2", "y_position": 575, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.0780951},
+    {"name": "NS3 PAL Y=0 D-variant (194.14)", "night_shutter": "NS3", "y_position": 0, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.19414},
+    {"name": "NS3 PAL Y=240 D-variant", "night_shutter": "NS3", "y_position": 240, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.17916352},
+    {"name": "NS3 PAL Y=575 D-variant", "night_shutter": "NS3", "y_position": 575, "video_format": "PAL_CCIR", "edge": "D", "expect": -0.15825885},
+    {"name": "NS3 PAL Y=0 R-variant (194.94 / -0.062463)", "night_shutter": "NS3", "y_position": 0, "video_format": "PAL_CCIR", "edge": "R", "expect": -0.19494},
+    {"name": "NS3 PAL Y=240 R-variant", "night_shutter": "NS3", "y_position": 240, "video_format": "PAL_CCIR", "edge": "R", "expect": -0.17994888},
+    {"name": "NS3 PAL Y=575 R-variant", "night_shutter": "NS3", "y_position": 575, "video_format": "PAL_CCIR", "edge": "R", "expect": -0.159023775},
+    {"name": "NS1 NTSC Y=240 R equals D (only PAL NS3 differs)", "night_shutter": "NS1", "y_position": 240, "video_format": "NTSC_EIA", "edge": "R", "expect": -0.05301144},
+    {"name": "NS1 NTSC Y=480 out of range -> raises", "night_shutter": "NS1", "y_position": 480, "video_format": "NTSC_EIA", "edge": "D", "expect": {"raises": true}},
+    {"name": "NS1 PAL Y=576 out of range -> raises", "night_shutter": "NS1", "y_position": 576, "video_format": "PAL_CCIR", "edge": "D", "expect": {"raises": true}}
+  ],
+  "apply": [
+    {
+      "name": "Watec 120N X1 NTSC PYOTE full pipeline: total = -0.0334 + -0.0167 = -0.0501",
+      "camera": "WATEC_120N", "exposure": "X1", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": true, "camera_delay_d_s": -0.0334, "vti_offset_d_s": -0.0167, "total_correction_d_s": -0.0501, "total_correction_r_s": -0.0501, "near_midnight_review": false, "corrected_d_utc": "2026-07-01T04:59:59.9499Z", "corrected_r_utc": "2026-07-01T05:01:59.9499Z"}
+    },
+    {
+      "name": "RunCam Astro NS1 NTSC Y_D=0 Y_R=240 + PYOTE (vti 0): totals from rolling poly",
+      "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "exposure": "X2", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "rolling_shutter": {"night_shutter": "NS1", "star_y_at_d": 0, "star_y_at_r": 240},
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": true, "camera_delay_d_s": -0.06903, "camera_delay_r_s": -0.05301144, "vti_offset_d_s": 0.0, "total_correction_d_s": -0.06903, "total_correction_r_s": -0.05301144, "near_midnight_review": false}
+    },
+    {
+      "name": "RunCam Astro NS3 PAL Y_D=240 Y_R=240 + Occular: camera_delay uses D/R variants, vti +0.02",
+      "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "exposure": "X8", "video_format": "PAL_CCIR",
+      "timing_device": "IOTA_VTI", "ote": "OCCULAR", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "rolling_shutter": {"night_shutter": "NS3", "star_y_at_d": 240, "star_y_at_r": 240},
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": true, "camera_delay_d_s": -0.17916352, "camera_delay_r_s": -0.17994888, "vti_offset_d_s": 0.02, "total_correction_d_s": -0.15916352, "total_correction_r_s": -0.15994888, "near_midnight_review": false}
+    },
+    {
+      "name": "AAV-NTSC format zeroes total (§5.3)",
+      "camera": "WATEC_910HX", "exposure": "X1", "video_format": "AAV_NTSC",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": true, "camera_delay_d_s": 0.0, "vti_offset_d_s": 0.0, "total_correction_d_s": 0.0, "total_correction_r_s": 0.0, "near_midnight_review": false, "corrected_d_utc": "2026-07-01T05:00:00.000Z"}
+    },
+    {
+      "name": "ADVS format zeroes total (§5.3)",
+      "camera": "WATEC_910HX", "exposure": "X1", "video_format": "ADVS",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": true, "total_correction_d_s": 0.0, "total_correction_r_s": 0.0, "near_midnight_review": false}
+    },
+    {
+      "name": "Flash Tag zeroes both camera delay and VTI offset",
+      "camera": "WATEC_120N", "exposure": "X8", "video_format": "NTSC_EIA",
+      "timing_device": "AFT_OFT_FLASH_TAG", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": true, "camera_delay_d_s": 0.0, "vti_offset_d_s": 0.0, "total_correction_d_s": 0.0, "total_correction_r_s": 0.0}
+    },
+    {
+      "name": "Manual mode passthrough: corrected == raw, applied False (§5.7)",
+      "camera": "WATEC_910HX", "exposure": "X1", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "MANUALLY_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": false, "camera_delay_d_s": 0.0, "vti_offset_d_s": 0.0, "total_correction_d_s": 0.0, "total_correction_r_s": 0.0, "near_midnight_review": false, "corrected_d_utc": "2026-07-01T05:00:00.000Z", "corrected_r_utc": "2026-07-01T05:02:00.000Z"}
+    },
+    {
+      "name": "Self-correcting camera (G-Star) manual passthrough (§5.7)",
+      "camera": "G_STAR", "exposure": "X1", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "MANUALLY_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": false, "total_correction_d_s": 0.0, "corrected_d_utc": "2026-07-01T05:00:00.000Z"}
+    },
+    {
+      "name": "Blank OTE (NONE) forces passthrough (§5.5 K57/M57 guards)",
+      "camera": "WATEC_910HX", "exposure": "X1", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "NONE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"applied": false, "total_correction_d_s": 0.0, "corrected_d_utc": "2026-07-01T05:00:00.000Z"}
+    },
+    {
+      "name": "Midnight wrap: D 00:00:00.200 - 0.3003 rolls to previous day 23:59:59.8997",
+      "camera": "WATEC_120N", "exposure": "X16", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T00:00:00.200Z", "r_raw_utc": "2026-07-01T00:00:05.000Z",
+      "expect": {"applied": true, "total_correction_d_s": -0.3003, "near_midnight_review": true, "corrected_d_utc": "2026-06-30T23:59:59.8997Z"}
+    },
+    {
+      "name": "Midnight wrap: D 23:59:59.900 - 0.3003 stays same day; near-midnight flagged",
+      "camera": "WATEC_120N", "exposure": "X16", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T23:59:59.900Z", "r_raw_utc": "2026-07-01T23:59:50.000Z",
+      "expect": {"applied": true, "total_correction_d_s": -0.3003, "near_midnight_review": true, "corrected_d_utc": "2026-07-01T23:59:59.5997Z"}
+    },
+    {
+      "name": "Near-midnight review-flag boundary: 3s away > |0.0501|+2 -> flag False",
+      "camera": "WATEC_120N", "exposure": "X1", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T00:00:03.000Z", "r_raw_utc": "2026-07-01T00:00:04.000Z",
+      "expect": {"applied": true, "total_correction_d_s": -0.0501, "near_midnight_review": false, "corrected_d_utc": "2026-07-01T00:00:02.9499Z"}
+    },
+    {
+      "name": "Near-midnight review-flag boundary: 2s away <= |0.0501|+2 -> flag True",
+      "camera": "WATEC_120N", "exposure": "X1", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T00:00:02.000Z", "r_raw_utc": "2026-07-01T00:00:02.500Z",
+      "expect": {"applied": true, "total_correction_d_s": -0.0501, "near_midnight_review": true, "corrected_d_utc": "2026-07-01T00:00:01.9499Z"}
+    },
+    {
+      "name": "Incompatible combo through apply_corrections raises (Watec 120N X6)",
+      "camera": "WATEC_120N", "exposure": "X6", "video_format": "NTSC_EIA",
+      "timing_device": "IOTA_VTI", "ote": "PYOTE", "timing_mode": "AUTO_CORRECTED", "result": "POSITIVE",
+      "d_raw_utc": "2026-07-01T05:00:00.000Z", "r_raw_utc": "2026-07-01T05:02:00.000Z",
+      "expect": {"raises": true}
+    }
+  ],
+  "check_compatibility": [
+    {"name": "Valid Watec 120N X8 PYOTE -> no issues", "camera": "WATEC_120N", "exposure": "X8", "ote": "PYOTE", "video_format": "NTSC_EIA", "expect_kinds": []},
+    {"name": "Watec 120N X6 -> exposure issue", "camera": "WATEC_120N", "exposure": "X6", "ote": "PYOTE", "video_format": "NTSC_EIA", "expect_kinds": ["exposure"]},
+    {"name": "QHY 174 GPS R-OTE w/CamDelay -> ote issue", "camera": "QHY_174_GPS", "exposure": "X1", "ote": "R_OTE_WITH_CAMDELAY", "video_format": "NTSC_EIA", "expect_kinds": ["ote"]},
+    {"name": "ASTRID R-OTE w/CamDelay -> ote issue", "camera": "ASTRID", "exposure": "X1", "ote": "R_OTE_WITH_CAMDELAY", "video_format": "NTSC_EIA", "expect_kinds": ["ote"]},
+    {"name": "RunCam Astro X1 -> exposure issue (only 2x/4x/8x)", "camera": "RUNCAM_NIGHT_EAGLE_ASTRO", "exposure": "X1", "ote": "PYOTE", "video_format": "NTSC_EIA", "expect_kinds": ["exposure"]},
+    {"name": "QHY 174 GPS X6 + R-OTE w/CamDelay -> both issues", "camera": "QHY_174_GPS", "exposure": "X6", "ote": "R_OTE_WITH_CAMDELAY", "video_format": "NTSC_EIA", "expect_kinds": ["exposure", "ote"]}
+  ]
+}
