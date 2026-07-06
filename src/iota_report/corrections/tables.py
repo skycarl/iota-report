@@ -23,15 +23,11 @@ from iota_report.enums import (
     VideoFormat,
 )
 
-# --- Field durations (§6.1) ---------------------------------------------------
-# NTSC/EIA field = 1/59.94 s; PAL/CCIR field = 1/50 s.
-FIELD_DURATION_S: dict[VideoFormat, float] = {
-    VideoFormat.NTSC_EIA: 0.0167,
-    VideoFormat.PAL_CCIR: 0.02,
-}
-
 # --- Per-camera integration-delay tables (§6.2) -------------------------------
 # camera -> exposure -> (pal_ccir_s, ntsc_eia_s)
+# Values are the final products of -FieldDelay x field duration (NTSC/EIA field =
+# 1/59.94 s, PAL/CCIR field = 1/50 s; §6.1), so the field durations themselves are
+# not needed at runtime.
 
 _WATEC_120N: dict[ExposureSetting, tuple[float | None, float | None]] = {
     ExposureSetting.X1: (-0.04, -0.0334),
@@ -180,12 +176,13 @@ ROLLING_SHUTTER_COEFFS: dict[
 # RunCam Astro Y-position pixel ranges per video family (§2.6, §5.4).
 ROLLING_SHUTTER_Y_MAX: dict[_VideoFamily, int] = {"NTSC": 479, "PAL": 575}
 
-# Exposure -> night shutter mapping for RunCam Astro (§5.4: 2x/4x/8x -> NS1/NS2/NS3).
-EXPOSURE_TO_NIGHT_SHUTTER: dict[ExposureSetting, NightShutter] = {
-    ExposureSetting.X2: NightShutter.NS1,
-    ExposureSetting.X4: NightShutter.NS2,
-    ExposureSetting.X8: NightShutter.NS3,
-}
+
+def video_family(video_format: VideoFormat) -> _VideoFamily:
+    """Map a video format to its rolling-shutter family (Y-range / coefficients)."""
+    if video_format in (VideoFormat.PAL_CCIR, VideoFormat.AAV_PAL):
+        return "PAL"
+    return "NTSC"
+
 
 # --- Camera classification frozensets -----------------------------------------
 # Self-correcting cameras (§5.7): observer enters already-corrected times; the
