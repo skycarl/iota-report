@@ -1,0 +1,113 @@
+"""iota-report: a portable JSON occultation observation report.
+
+Pydantic v2 models plus a faithful port of the IOTA Excel form's timing-correction
+engine. The canonical wire contract is the committed JSON Schema
+(``schema/iota-report.schema.json``); TypeScript and C# types are generated from it.
+"""
+
+from iota_report.coordinates import (
+    parse_coordinate,
+    parse_latitude,
+    parse_longitude,
+)
+from iota_report.corrections import (
+    CompatibilityIssue,
+    CorrectionResult,
+    IncompatibleConfigurationError,
+    apply_corrections,
+    camera_delay,
+    check_compatibility,
+    rolling_shutter_correction,
+    vti_offset,
+)
+from iota_report.enums import (
+    LABELS,
+    CameraModel,
+    CloudCondition,
+    Datum,
+    ExposureSetting,
+    NightShutter,
+    ObservationResult,
+    OteProgram,
+    PassDirection,
+    Stability,
+    StarCatalog,
+    TelescopeType,
+    TimeSource,
+    TimingDevice,
+    TimingMethod,
+    TimingMode,
+    VideoFormat,
+    YesNoMaybe,
+)
+from iota_report.models import (
+    CameraSetup,
+    CorrectedTimings,
+    Environment,
+    ErrorBars,
+    EventIdentity,
+    EventTimings,
+    MissDetails,
+    Observer,
+    ObservingInterruption,
+    Report,
+    RollingShutterInputs,
+    Station,
+    Telescope,
+    TimingMeasurement,
+    TimingSetup,
+)
+from iota_report.schema import SCHEMA_VERSION, export_schema, schema_id
+
+__version__ = "0.1.0"
+
+__all__ = [
+    "LABELS",
+    "SCHEMA_VERSION",
+    "CameraModel",
+    "CameraSetup",
+    "CloudCondition",
+    "CompatibilityIssue",
+    "CorrectedTimings",
+    "CorrectionResult",
+    "Datum",
+    "Environment",
+    "ErrorBars",
+    "EventIdentity",
+    "EventTimings",
+    "ExposureSetting",
+    "IncompatibleConfigurationError",
+    "MissDetails",
+    "NightShutter",
+    "ObservationResult",
+    "Observer",
+    "ObservingInterruption",
+    "OteProgram",
+    "PassDirection",
+    "Report",
+    "RollingShutterInputs",
+    "Stability",
+    "StarCatalog",
+    "Station",
+    "Telescope",
+    "TelescopeType",
+    "TimeSource",
+    "TimingDevice",
+    "TimingMeasurement",
+    "TimingMethod",
+    "TimingMode",
+    "TimingSetup",
+    "VideoFormat",
+    "YesNoMaybe",
+    "__version__",
+    "apply_corrections",
+    "camera_delay",
+    "check_compatibility",
+    "export_schema",
+    "parse_coordinate",
+    "parse_latitude",
+    "parse_longitude",
+    "rolling_shutter_correction",
+    "schema_id",
+    "vti_offset",
+]
