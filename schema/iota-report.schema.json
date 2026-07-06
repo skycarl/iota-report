@@ -1,0 +1,1025 @@
+{
+  "$defs": {
+    "CameraModel": {
+      "enum": [
+        "CCD_DRIFT_SCAN",
+        "ASTRID",
+        "FLEA3_03S1_ADVS",
+        "FLEA3_03S3_ADVS",
+        "FLEA3_28S4M_ADVS",
+        "GRASSHOPPER_EXPRESS_ADVS",
+        "G_STAR",
+        "KPC_350BH",
+        "LN_300_11673",
+        "MALLINCAM",
+        "MINTRON_12V1C_EX",
+        "PC164C",
+        "PC164C_EX",
+        "PC165_DNR",
+        "PHOTOMETER",
+        "QHY_174_GPS",
+        "RUNCAM_NIGHT_EAGLE",
+        "RUNCAM_NIGHT_EAGLE_ASTRO",
+        "SAMSUNG_SBC_2000",
+        "VISUAL",
+        "WATEC_120N",
+        "WATEC_120N_PLUS",
+        "WATEC_902H",
+        "WATEC_910BD",
+        "WATEC_910HX",
+        "OTHER"
+      ],
+      "title": "CameraModel",
+      "type": "string"
+    },
+    "CameraSetup": {
+      "additionalProperties": false,
+      "properties": {
+        "camera_model": {
+          "$ref": "#/$defs/CameraModel"
+        },
+        "camera_other": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Required when camera_model == OTHER",
+          "title": "Camera Other"
+        },
+        "detector_notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Filter type / special settings",
+          "title": "Detector Notes"
+        },
+        "exposure": {
+          "$ref": "#/$defs/ExposureSetting",
+          "description": "Integration length in FIELDS"
+        },
+        "rolling_shutter": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RollingShutterInputs"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Required for RUNCAM_NIGHT_EAGLE_ASTRO in AUTO_CORRECTED mode"
+        },
+        "video_format": {
+          "$ref": "#/$defs/VideoFormat"
+        }
+      },
+      "required": [
+        "camera_model",
+        "video_format",
+        "exposure"
+      ],
+      "title": "CameraSetup",
+      "type": "object"
+    },
+    "CloudCondition": {
+      "enum": [
+        "CLEAR",
+        "FOG",
+        "THIN_CLOUD",
+        "THICK_CLOUD",
+        "BROKEN_CLOUD",
+        "STAR_FAINT",
+        "AVERTED_VISION"
+      ],
+      "title": "CloudCondition",
+      "type": "string"
+    },
+    "CorrectedTimings": {
+      "additionalProperties": false,
+      "description": "Computed correction block, embedded so the report is self-contained.",
+      "properties": {
+        "camera_delay_d_s": {
+          "default": 0.0,
+          "title": "Camera Delay D S",
+          "type": "number"
+        },
+        "camera_delay_r_s": {
+          "default": 0.0,
+          "title": "Camera Delay R S",
+          "type": "number"
+        },
+        "disappearance_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Disappearance Utc"
+        },
+        "near_midnight_review": {
+          "default": false,
+          "description": "Raw time within |correction| + 2s of 00:00:00 UT \u2014 review flag only",
+          "title": "Near Midnight Review",
+          "type": "boolean"
+        },
+        "reappearance_utc": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reappearance Utc"
+        },
+        "total_correction_d_s": {
+          "default": 0.0,
+          "title": "Total Correction D S",
+          "type": "number"
+        },
+        "total_correction_r_s": {
+          "default": 0.0,
+          "title": "Total Correction R S",
+          "type": "number"
+        },
+        "vti_offset_d_s": {
+          "default": 0.0,
+          "title": "Vti Offset D S",
+          "type": "number"
+        },
+        "vti_offset_r_s": {
+          "default": 0.0,
+          "title": "Vti Offset R S",
+          "type": "number"
+        }
+      },
+      "title": "CorrectedTimings",
+      "type": "object"
+    },
+    "Datum": {
+      "enum": [
+        "NAD1927",
+        "WGS84",
+        "EP1950",
+        "TOKYO",
+        "GBSN80",
+        "OTHER"
+      ],
+      "title": "Datum",
+      "type": "string"
+    },
+    "Environment": {
+      "additionalProperties": false,
+      "properties": {
+        "interruptions": {
+          "items": {
+            "$ref": "#/$defs/ObservingInterruption"
+          },
+          "title": "Interruptions",
+          "type": "array"
+        },
+        "other_conditions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Other Conditions"
+        },
+        "stability": {
+          "$ref": "#/$defs/Stability"
+        },
+        "temperature_c": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Temperature C"
+        },
+        "transparency": {
+          "$ref": "#/$defs/CloudCondition"
+        }
+      },
+      "required": [
+        "transparency",
+        "stability"
+      ],
+      "title": "Environment",
+      "type": "object"
+    },
+    "ErrorBars": {
+      "additionalProperties": false,
+      "properties": {
+        "cl_68": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "+/- s at 0.6827 CL",
+          "title": "Cl 68"
+        },
+        "cl_95": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "+/- s at 0.9500 CL (primary accuracy)",
+          "title": "Cl 95"
+        },
+        "cl_9973": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "+/- s at 0.9973 CL",
+          "title": "Cl 9973"
+        }
+      },
+      "title": "ErrorBars",
+      "type": "object"
+    },
+    "EventIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "asteroid_name": {
+          "title": "Asteroid Name",
+          "type": "string"
+        },
+        "asteroid_number": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Minor-planet number; None for unnumbered objects",
+          "title": "Asteroid Number"
+        },
+        "is_lucky_star_or_rio_tno": {
+          "default": false,
+          "title": "Is Lucky Star Or Rio Tno",
+          "type": "boolean"
+        },
+        "predicted_time_utc": {
+          "format": "date-time",
+          "title": "Predicted Time Utc",
+          "type": "string"
+        },
+        "provisional_designation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Occult-XML compatibility, e.g. '2014 MU69'",
+          "title": "Provisional Designation"
+        },
+        "second_star": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/YesNoMaybe"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "star_catalog": {
+          "$ref": "#/$defs/StarCatalog"
+        },
+        "star_number": {
+          "description": "Catalog-specific format, dashes preserved (e.g. '1234-56789-1')",
+          "title": "Star Number",
+          "type": "string"
+        }
+      },
+      "required": [
+        "predicted_time_utc",
+        "asteroid_name",
+        "star_catalog",
+        "star_number"
+      ],
+      "title": "EventIdentity",
+      "type": "object"
+    },
+    "EventTimings": {
+      "additionalProperties": false,
+      "properties": {
+        "corrected": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CorrectedTimings"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Populated by apply_corrections(); None until computed"
+        },
+        "disappearance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimingMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reappearance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimingMeasurement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "signal_to_noise": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Signal To Noise"
+        },
+        "start_observing_utc": {
+          "format": "date-time",
+          "title": "Start Observing Utc",
+          "type": "string"
+        },
+        "stop_observing_utc": {
+          "format": "date-time",
+          "title": "Stop Observing Utc",
+          "type": "string"
+        },
+        "timing_mode": {
+          "$ref": "#/$defs/TimingMode"
+        }
+      },
+      "required": [
+        "timing_mode",
+        "start_observing_utc",
+        "stop_observing_utc"
+      ],
+      "title": "EventTimings",
+      "type": "object"
+    },
+    "ExposureSetting": {
+      "enum": [
+        "OTHER",
+        "X1",
+        "X2",
+        "X4",
+        "X6",
+        "X8",
+        "X10",
+        "X12",
+        "X14",
+        "X16",
+        "X24",
+        "X32",
+        "X48",
+        "X64",
+        "X96",
+        "X128",
+        "X256",
+        "X512"
+      ],
+      "title": "ExposureSetting",
+      "type": "string"
+    },
+    "MissDetails": {
+      "additionalProperties": false,
+      "properties": {
+        "closest_approach_arcsec": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Closest Approach Arcsec"
+        },
+        "pass_direction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PassDirection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "was_miss": {
+          "$ref": "#/$defs/YesNoMaybe"
+        }
+      },
+      "required": [
+        "was_miss"
+      ],
+      "title": "MissDetails",
+      "type": "object"
+    },
+    "NightShutter": {
+      "enum": [
+        "NS1",
+        "NS2",
+        "NS3"
+      ],
+      "title": "NightShutter",
+      "type": "string"
+    },
+    "ObservationResult": {
+      "enum": [
+        "POSITIVE",
+        "NEGATIVE",
+        "UNSURE"
+      ],
+      "title": "ObservationResult",
+      "type": "string"
+    },
+    "Observer": {
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "format": "email",
+          "title": "Email",
+          "type": "string"
+        },
+        "home_location": {
+          "description": "City, State, Country (free text)",
+          "title": "Home Location",
+          "type": "string"
+        },
+        "mailing_address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mailing Address"
+        },
+        "names": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Names",
+          "type": "array"
+        },
+        "phone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Phone"
+        }
+      },
+      "required": [
+        "names",
+        "email",
+        "home_location"
+      ],
+      "title": "Observer",
+      "type": "object"
+    },
+    "ObservingInterruption": {
+      "additionalProperties": false,
+      "properties": {
+        "end_utc": {
+          "format": "date-time",
+          "title": "End Utc",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        },
+        "start_utc": {
+          "format": "date-time",
+          "title": "Start Utc",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start_utc",
+        "end_utc"
+      ],
+      "title": "ObservingInterruption",
+      "type": "object"
+    },
+    "OteProgram": {
+      "enum": [
+        "NONE",
+        "MANUAL",
+        "AOTA_WITH_CAMDELAY",
+        "OCCULAR",
+        "R_OTE_WITH_CAMDELAY",
+        "R_OTE_WITHOUT_CAMDELAY",
+        "PYOTE",
+        "OTHER"
+      ],
+      "title": "OteProgram",
+      "type": "string"
+    },
+    "PassDirection": {
+      "enum": [
+        "N",
+        "S",
+        "E",
+        "W"
+      ],
+      "title": "PassDirection",
+      "type": "string"
+    },
+    "RollingShutterInputs": {
+      "additionalProperties": false,
+      "properties": {
+        "night_shutter": {
+          "$ref": "#/$defs/NightShutter"
+        },
+        "star_y_at_d": {
+          "description": "Star Y-pixel at D (per-format max enforced by engine)",
+          "maximum": 575,
+          "minimum": 0,
+          "title": "Star Y At D",
+          "type": "integer"
+        },
+        "star_y_at_r": {
+          "description": "Star Y-pixel at R",
+          "maximum": 575,
+          "minimum": 0,
+          "title": "Star Y At R",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "night_shutter",
+        "star_y_at_d",
+        "star_y_at_r"
+      ],
+      "title": "RollingShutterInputs",
+      "type": "object"
+    },
+    "Stability": {
+      "enum": [
+        "STEADY",
+        "SLIGHT_FLICKERING",
+        "STRONG_FLICKERING"
+      ],
+      "title": "Stability",
+      "type": "string"
+    },
+    "StarCatalog": {
+      "description": "Star catalog identifiers.\n\nValues are identical to iota-hub's ``StarCatalog``\n(``apps/api/app/models/api/common.py``) so the hub mapping is identity.",
+      "enum": [
+        "TYC",
+        "HIP",
+        "UCAC2",
+        "UCAC3",
+        "UCAC4",
+        "G_COORDS",
+        "URAT1",
+        "1B",
+        "1N"
+      ],
+      "title": "StarCatalog",
+      "type": "string"
+    },
+    "Station": {
+      "additionalProperties": false,
+      "properties": {
+        "datum": {
+          "$ref": "#/$defs/Datum",
+          "default": "WGS84"
+        },
+        "elevation_m": {
+          "description": "Metres above MSL",
+          "maximum": 30000,
+          "minimum": -500,
+          "title": "Elevation M",
+          "type": "number"
+        },
+        "latitude_deg": {
+          "description": "Signed decimal degrees; South negative",
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Latitude Deg",
+          "type": "number"
+        },
+        "location_name": {
+          "description": "Nearest town + state/province + 2-letter country code",
+          "title": "Location Name",
+          "type": "string"
+        },
+        "longitude_deg": {
+          "description": "East positive, West negative",
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude Deg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "location_name",
+        "latitude_deg",
+        "longitude_deg",
+        "elevation_m"
+      ],
+      "title": "Station",
+      "type": "object"
+    },
+    "Telescope": {
+      "additionalProperties": false,
+      "properties": {
+        "aperture_cm": {
+          "exclusiveMinimum": 0,
+          "maximum": 25400,
+          "title": "Aperture Cm",
+          "type": "number"
+        },
+        "focal_ratio": {
+          "maximum": 999,
+          "minimum": 0,
+          "title": "Focal Ratio",
+          "type": "number"
+        },
+        "magnification": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Visual observations only",
+          "title": "Magnification"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "'other - specify' free text",
+          "title": "Notes"
+        },
+        "telescope_type": {
+          "$ref": "#/$defs/TelescopeType"
+        }
+      },
+      "required": [
+        "aperture_cm",
+        "focal_ratio",
+        "telescope_type"
+      ],
+      "title": "Telescope",
+      "type": "object"
+    },
+    "TelescopeType": {
+      "enum": [
+        "NEWTONIAN",
+        "SCT",
+        "REFRACTOR",
+        "DOBSONIAN",
+        "BINOCULARS",
+        "NO_OPTICAL_AID",
+        "OTHER"
+      ],
+      "title": "TelescopeType",
+      "type": "string"
+    },
+    "TimeSource": {
+      "enum": [
+        "GPS_TIME_INSERTED",
+        "GPS_OTHER_LINKING",
+        "VIDEO_AUDIO_TIME_SIGNAL",
+        "TAPE_RECORDER_TIME_SIGNAL",
+        "EYE_EAR_TIME_SIGNAL",
+        "STOPWATCH",
+        "RADIO_BROADCAST_CALIBRATED",
+        "OTHER"
+      ],
+      "title": "TimeSource",
+      "type": "string"
+    },
+    "TimingDevice": {
+      "enum": [
+        "ADVS",
+        "AFT_OFT_FLASH_TAG",
+        "ASTRID",
+        "BEEPERBOX",
+        "CELLPHONE",
+        "COMPUTER_NTP",
+        "GPS",
+        "GPS_ABC",
+        "IOTA_VTI",
+        "KIWI_OSD",
+        "STOPWATCH",
+        "WWV_RADIO",
+        "OTHER"
+      ],
+      "title": "TimingDevice",
+      "type": "string"
+    },
+    "TimingMeasurement": {
+      "additionalProperties": false,
+      "properties": {
+        "error_bars": {
+          "$ref": "#/$defs/ErrorBars"
+        },
+        "personal_equation_applied": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Personal Equation Applied"
+        },
+        "personal_equation_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Visual only",
+          "title": "Personal Equation S"
+        },
+        "time_utc": {
+          "description": "RAW time in AUTO_CORRECTED mode; FINAL time in MANUALLY_CORRECTED mode",
+          "format": "date-time",
+          "title": "Time Utc",
+          "type": "string"
+        }
+      },
+      "required": [
+        "time_utc"
+      ],
+      "title": "TimingMeasurement",
+      "type": "object"
+    },
+    "TimingMethod": {
+      "enum": [
+        "VISUAL_PE_APPLIED",
+        "VISUAL_STANDARD_PE_APPLIED",
+        "VISUAL_NO_PE_APPLIED",
+        "VIDEO_FRAME_ANALYSIS",
+        "VIDEO_PHOTO_PHOTOELECTRIC",
+        "DURATION_ONLY",
+        "DRIFT_SCAN",
+        "PRELIMINARY_ONLY"
+      ],
+      "title": "TimingMethod",
+      "type": "string"
+    },
+    "TimingMode": {
+      "enum": [
+        "AUTO_CORRECTED",
+        "MANUALLY_CORRECTED"
+      ],
+      "title": "TimingMode",
+      "type": "string"
+    },
+    "TimingSetup": {
+      "additionalProperties": false,
+      "properties": {
+        "asteroid_visible": {
+          "description": "Asteroid visible before/during occultation (small mag-drop events)",
+          "title": "Asteroid Visible",
+          "type": "boolean"
+        },
+        "method": {
+          "$ref": "#/$defs/TimingMethod"
+        },
+        "ote_program": {
+          "$ref": "#/$defs/OteProgram",
+          "description": "Governs corrections; NONE == Excel's blank OTE"
+        },
+        "time_source": {
+          "$ref": "#/$defs/TimeSource"
+        },
+        "timing_device": {
+          "$ref": "#/$defs/TimingDevice",
+          "description": "The VTI (video time inserter)"
+        }
+      },
+      "required": [
+        "time_source",
+        "method",
+        "asteroid_visible",
+        "timing_device",
+        "ote_program"
+      ],
+      "title": "TimingSetup",
+      "type": "object"
+    },
+    "VideoFormat": {
+      "enum": [
+        "AAV_NTSC",
+        "AAV_PAL",
+        "ADVS",
+        "CCD_DRIFT",
+        "FITS_IMAGES",
+        "NTSC_EIA",
+        "PAL_CCIR"
+      ],
+      "title": "VideoFormat",
+      "type": "string"
+    },
+    "YesNoMaybe": {
+      "enum": [
+        "YES",
+        "NO",
+        "MAYBE"
+      ],
+      "title": "YesNoMaybe",
+      "type": "string"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/skycarl/iota-report/v1.0.0/schema/iota-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A complete, portable occultation observation report.",
+  "properties": {
+    "camera": {
+      "$ref": "#/$defs/CameraSetup"
+    },
+    "comments": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Comments"
+    },
+    "created_with": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Producing app + version, e.g. 'iota-hub/2026.07'",
+      "title": "Created With"
+    },
+    "environment": {
+      "$ref": "#/$defs/Environment"
+    },
+    "event": {
+      "$ref": "#/$defs/EventIdentity"
+    },
+    "miss": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MissDetails"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "observer": {
+      "$ref": "#/$defs/Observer"
+    },
+    "result": {
+      "$ref": "#/$defs/ObservationResult"
+    },
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "station": {
+      "$ref": "#/$defs/Station"
+    },
+    "telescope": {
+      "$ref": "#/$defs/Telescope"
+    },
+    "timing_setup": {
+      "$ref": "#/$defs/TimingSetup"
+    },
+    "timings": {
+      "$ref": "#/$defs/EventTimings"
+    }
+  },
+  "required": [
+    "result",
+    "event",
+    "observer",
+    "station",
+    "telescope",
+    "timing_setup",
+    "camera",
+    "timings",
+    "environment"
+  ],
+  "title": "Report",
+  "type": "object"
+}
