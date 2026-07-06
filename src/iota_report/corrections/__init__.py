@@ -2,7 +2,9 @@
 
 from iota_report.corrections.compatibility import (
     CompatibilityIssue,
+    CorrectionError,
     IncompatibleConfigurationError,
+    InvalidCorrectionInputError,
     check_compatibility,
 )
 from iota_report.corrections.engine import (
@@ -15,8 +17,10 @@ from iota_report.corrections.engine import (
 
 __all__ = [
     "CompatibilityIssue",
+    "CorrectionError",
     "CorrectionResult",
     "IncompatibleConfigurationError",
+    "InvalidCorrectionInputError",
     "apply_corrections",
     "camera_delay",
     "check_compatibility",

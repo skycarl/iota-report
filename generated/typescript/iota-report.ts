@@ -97,7 +97,7 @@ export enum ExposureSetting {
 export interface RollingShutterInputs {
     night_shutter: NightShutter;
     /**
-     * Star Y-pixel at D (per-format max enforced by engine)
+     * Star Y-pixel at D (per-format max enforced on CameraSetup)
      */
     star_y_at_d: number;
     /**

@@ -12,8 +12,10 @@ from iota_report.coordinates import (
 )
 from iota_report.corrections import (
     CompatibilityIssue,
+    CorrectionError,
     CorrectionResult,
     IncompatibleConfigurationError,
+    InvalidCorrectionInputError,
     apply_corrections,
     camera_delay,
     check_compatibility,
@@ -69,6 +71,7 @@ __all__ = [
     "CloudCondition",
     "CompatibilityIssue",
     "CorrectedTimings",
+    "CorrectionError",
     "CorrectionResult",
     "Datum",
     "Environment",
@@ -77,6 +80,7 @@ __all__ = [
     "EventTimings",
     "ExposureSetting",
     "IncompatibleConfigurationError",
+    "InvalidCorrectionInputError",
     "MissDetails",
     "NightShutter",
     "ObservationResult",

@@ -624,7 +624,7 @@
           "$ref": "#/$defs/NightShutter"
         },
         "star_y_at_d": {
-          "description": "Star Y-pixel at D (per-format max enforced by engine)",
+          "description": "Star Y-pixel at D (per-format max enforced on CameraSetup)",
           "maximum": 575,
           "minimum": 0,
           "title": "Star Y At D",

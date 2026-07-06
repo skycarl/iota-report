@@ -30,12 +30,30 @@ class CompatibilityIssue:
     message: str
 
 
-class IncompatibleConfigurationError(ValueError):
+class CorrectionError(ValueError):
+    """Base class for every timing-correction error.
+
+    Subclasses :class:`ValueError` so existing ``except ValueError`` handlers keep
+    working; callers wanting to catch the whole family should catch this class.
+    """
+
+
+class IncompatibleConfigurationError(CorrectionError):
     """Raised when a correction is requested for an out-of-matrix configuration."""
 
     def __init__(self, issues: list[CompatibilityIssue]):
         self.issues = issues
         super().__init__("; ".join(issue.message for issue in issues))
+
+
+class InvalidCorrectionInputError(CorrectionError):
+    """Raised when a correction input is individually invalid.
+
+    Covers a rolling-shutter star-Y position outside the per-format range and
+    missing rolling-shutter inputs for a camera that requires them. The model
+    layer normally rejects these before they reach the engine; this guards direct
+    engine callers who pass raw values.
+    """
 
 
 def check_compatibility(

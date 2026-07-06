@@ -13,6 +13,7 @@ from iota_report import Report
 from iota_report.enums import (
     CameraModel,
     ExposureSetting,
+    NightShutter,
     ObservationResult,
     StarCatalog,
     TimingMode,
@@ -67,6 +68,47 @@ def test_runcam_astro_auto_with_rolling_shutter_ok() -> None:
         ),
     )
     assert report.camera.rolling_shutter is not None
+
+
+def _astro_report(video_format: VideoFormat, star_y: int) -> Report:
+    return make_report(
+        camera_model=CameraModel.RUNCAM_NIGHT_EAGLE_ASTRO,
+        exposure=ExposureSetting.X2,
+        video_format=video_format,
+        timing_mode=TimingMode.AUTO_CORRECTED,
+        disappearance_utc=_D,
+        reappearance_utc=_R,
+        rolling_shutter=RollingShutterInputs(
+            night_shutter=NightShutter.NS1, star_y_at_d=star_y, star_y_at_r=star_y
+        ),
+    )
+
+
+@pytest.mark.parametrize(
+    "video_format,star_y",
+    [(VideoFormat.NTSC_EIA, 479), (VideoFormat.PAL_CCIR, 575)],
+)
+def test_rolling_shutter_y_at_format_max_ok(
+    video_format: VideoFormat, star_y: int
+) -> None:
+    report = _astro_report(video_format, star_y)
+    assert report.camera.rolling_shutter is not None
+    assert report.camera.rolling_shutter.star_y_at_d == star_y
+
+
+def test_rolling_shutter_y_ntsc_above_max_rejected() -> None:
+    # 480 is within the field's PAL bound (le=575) but past the NTSC max (479);
+    # the per-format CameraSetup validator must reject it.
+    with pytest.raises(ValidationError, match="out of range"):
+        _astro_report(VideoFormat.NTSC_EIA, 480)
+
+
+def test_rolling_shutter_y_pal_above_max_rejected() -> None:
+    # 576 exceeds the PAL max (575); caught at the field bound.
+    with pytest.raises(
+        ValidationError, match=r"less than or equal to 575|out of range"
+    ):
+        _astro_report(VideoFormat.PAL_CCIR, 576)
 
 
 def test_camera_other_requires_camera_other_text() -> None:

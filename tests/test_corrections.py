@@ -17,7 +17,11 @@ from iota_report import (
     rolling_shutter_correction,
     vti_offset,
 )
-from iota_report.corrections import IncompatibleConfigurationError
+from iota_report.corrections import (
+    CorrectionError,
+    IncompatibleConfigurationError,
+    InvalidCorrectionInputError,
+)
 from iota_report.enums import (
     CameraModel,
     ExposureSetting,
@@ -112,6 +116,35 @@ def test_camera_delay_runcam_astro_uses_per_edge_y() -> None:
     )
     assert d == pytest.approx(-0.06903)
     assert r == pytest.approx(-0.05301144)
+
+
+def test_rolling_shutter_y_out_of_range_raises_typed_error() -> None:
+    with pytest.raises(InvalidCorrectionInputError) as excinfo:
+        rolling_shutter_correction(
+            NightShutter.NS1, 480, VideoFormat.NTSC_EIA, edge="D"
+        )
+    # Catchable via the package error family and the ValueError base.
+    assert isinstance(excinfo.value, CorrectionError)
+    assert isinstance(excinfo.value, ValueError)
+
+
+def test_engine_errors_share_one_family() -> None:
+    # Both engine error types resolve through CorrectionError so a caller can
+    # catch the whole family with a single except clause.
+    assert issubclass(IncompatibleConfigurationError, CorrectionError)
+    assert issubclass(InvalidCorrectionInputError, CorrectionError)
+
+
+def test_camera_delay_missing_rolling_shutter_is_typed() -> None:
+    with pytest.raises(CorrectionError):
+        camera_delay(
+            CameraModel.RUNCAM_NIGHT_EAGLE_ASTRO,
+            ExposureSetting.X2,
+            VideoFormat.NTSC_EIA,
+            TimingDevice.IOTA_VTI,
+            OteProgram.PYOTE,
+            edge="D",
+        )
 
 
 def test_rolling_shutter_pal_ns3_r_variant_differs_from_d() -> None:

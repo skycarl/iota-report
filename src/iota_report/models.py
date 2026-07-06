@@ -25,7 +25,11 @@ from pydantic import (
     model_validator,
 )
 
-from iota_report.corrections.tables import SELF_CORRECTING_CAMERAS
+from iota_report.corrections.tables import (
+    ROLLING_SHUTTER_Y_MAX,
+    SELF_CORRECTING_CAMERAS,
+    video_family,
+)
 from iota_report.enums import (
     CameraModel,
     CloudCondition,
@@ -152,7 +156,7 @@ class RollingShutterInputs(BaseModel):
     star_y_at_d: int = Field(
         ge=0,
         le=575,
-        description="Star Y-pixel at D (per-format max enforced by engine)",
+        description="Star Y-pixel at D (per-format max enforced on CameraSetup)",
     )
     star_y_at_r: int = Field(ge=0, le=575, description="Star Y-pixel at R")
 
@@ -173,6 +177,25 @@ class CameraSetup(BaseModel):
         default=None,
         description="Required for RUNCAM_NIGHT_EAGLE_ASTRO in AUTO_CORRECTED mode",
     )
+
+    @model_validator(mode="after")
+    def _validate_rolling_shutter_y_range(self) -> CameraSetup:
+        # The rolling-shutter Y-pixel range is format-dependent (NTSC 0-479, PAL
+        # 0-575). RollingShutterInputs alone can only bound the wider PAL range;
+        # the video format is known here, so enforce the exact per-format max.
+        if self.rolling_shutter is not None:
+            family = video_family(self.video_format)
+            y_max = ROLLING_SHUTTER_Y_MAX[family]
+            for field_name, y in (
+                ("star_y_at_d", self.rolling_shutter.star_y_at_d),
+                ("star_y_at_r", self.rolling_shutter.star_y_at_r),
+            ):
+                if y > y_max:
+                    raise ValueError(
+                        f"rolling_shutter.{field_name} {y} out of range [0, {y_max}] "
+                        f"for {self.video_format.value} ({family})"
+                    )
+        return self
 
 
 class ErrorBars(BaseModel):

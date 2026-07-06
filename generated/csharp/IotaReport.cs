@@ -102,7 +102,7 @@ namespace IotaReport
         public NightShutter NightShutter { get; set; }
 
         /// <summary>
-        /// Star Y-pixel at D (per-format max enforced by engine)
+        /// Star Y-pixel at D (per-format max enforced on CameraSetup)
         /// </summary>
         [JsonProperty("star_y_at_d")]
         public long StarYAtD { get; set; }

@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING, Literal
 from iota_report.corrections.compatibility import (
     CompatibilityIssue,
     IncompatibleConfigurationError,
+    InvalidCorrectionInputError,
     check_compatibility,
 )
 from iota_report.corrections.tables import (
@@ -25,6 +26,7 @@ from iota_report.corrections.tables import (
     SELF_CORRECTING_CAMERAS,
     VTI_OFFSET_TABLE,
     ZERO_CORRECTION_FORMATS,
+    video_family,
 )
 from iota_report.enums import (
     LABELS,
@@ -47,13 +49,6 @@ if TYPE_CHECKING:
 _SECONDS_PER_DAY = 86400
 
 
-def _video_family(video_format: VideoFormat) -> Literal["NTSC", "PAL"]:
-    """Map a video format to its rolling-shutter family (Y-range / coefficients)."""
-    if video_format in (VideoFormat.PAL_CCIR, VideoFormat.AAV_PAL):
-        return "PAL"
-    return "NTSC"
-
-
 def rolling_shutter_correction(
     night_shutter: NightShutter,
     y_position: int,
@@ -64,17 +59,18 @@ def rolling_shutter_correction(
     """RunCam Night Eagle Astro rolling-shutter correction, seconds (§5.4).
 
     ``corr = -(a + b*Y) * 0.001``. Y is range-checked per family
-    (NTSC 0-479, PAL 0-575). The PAL NS3 R-edge uses a distinct coefficient pair.
+    (NTSC 0-479, PAL 0-575), raising :class:`InvalidCorrectionInputError` when out
+    of range. The PAL NS3 R-edge uses a distinct coefficient pair.
 
     Note: the design docstring folded an "additional VTI" layer into this
     function, but that layer depends on the OTE program and VTI device — which are
     not parameters here — so it lives in :func:`vti_offset` instead (see
     ``_additional_vti``). This function is the pure rolling-shutter polynomial.
     """
-    family = _video_family(video_format)
+    family = video_family(video_format)
     y_max = ROLLING_SHUTTER_Y_MAX[family]
     if not 0 <= y_position <= y_max:
-        raise ValueError(
+        raise InvalidCorrectionInputError(
             f"star Y position {y_position} out of range [0, {y_max}] for {family}"
         )
     a, b = ROLLING_SHUTTER_COEFFS[(night_shutter, family, edge)]
@@ -111,7 +107,8 @@ def camera_delay(
     Zero when the timing device is an AFT/OFT Flash Tag or the OTE program already
     applied camera delay. RunCam Night Eagle Astro delegates to the per-edge
     rolling-shutter polynomial. Raises :class:`IncompatibleConfigurationError` for
-    an out-of-matrix combination.
+    an out-of-matrix combination, or :class:`InvalidCorrectionInputError` when a
+    RunCam Astro camera is missing its rolling-shutter inputs.
     """
     issues = check_compatibility(camera, exposure, ote, video_format)
     if issues:
@@ -125,7 +122,9 @@ def camera_delay(
 
     if camera == CameraModel.RUNCAM_NIGHT_EAGLE_ASTRO:
         if rolling_shutter is None:
-            raise ValueError("RUNCAM_NIGHT_EAGLE_ASTRO requires rolling_shutter inputs")
+            raise InvalidCorrectionInputError(
+                "RUNCAM_NIGHT_EAGLE_ASTRO requires rolling_shutter inputs"
+            )
         y = rolling_shutter.star_y_at_d if edge == "D" else rolling_shutter.star_y_at_r
         return rolling_shutter_correction(
             rolling_shutter.night_shutter, y, video_format, edge=edge
